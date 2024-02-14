@@ -9,6 +9,7 @@ import { BloogGroupModule } from './bloog-group/bloog-group.module';
 import { BloodGroup } from './bloog-group/blood-group.entity';
 import { PostModule } from './post/post.module';
 import { Post } from './post/post.entity'
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { Post } from './post/post.entity'
     UserModule,
     DetailsModule,
     BloogGroupModule,
-    PostModule],
+    PostModule,
+    RoleModule],
   controllers: [],
   providers: [],
 })
