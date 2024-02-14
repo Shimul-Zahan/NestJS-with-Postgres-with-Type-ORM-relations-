@@ -10,6 +10,7 @@ import { BloodGroup } from './bloog-group/blood-group.entity';
 import { PostModule } from './post/post.module';
 import { Post } from './post/post.entity'
 import { RoleModule } from './role/role.module';
+import { Role } from './role/role.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { RoleModule } from './role/role.module';
       password: process.env.DB_PASSWORD || '636deadline',
       database: process.env.DB_NAME || 'test-project',
       synchronize: true,
-      entities: [User, Details, BloodGroup, Post]
+      entities: [User, Details, BloodGroup, Post, Role]
     }),
     usersModule,
     UserModule,
