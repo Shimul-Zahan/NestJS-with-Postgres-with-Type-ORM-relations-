@@ -2,7 +2,8 @@
 import { BloodGroup } from "src/bloog-group/blood-group.entity";
 import { Details } from "src/details/details.entity";
 import { Post } from "src/post/post.entity";
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, OneToMany } from "typeorm";
+import { Role } from "src/role/role.entity";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
 
 
 @Entity()
@@ -25,4 +26,9 @@ export class User {
 
     @OneToMany(() => Post, post => post.user)
     posts: Post[];
+
+    // mantTomany Relations
+    @ManyToMany(() => Role, role => role.users)
+    @JoinTable()
+    roles: Role[];
 }
