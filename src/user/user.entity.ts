@@ -29,6 +29,6 @@ export class User {
 
     // mantTomany Relations
     @ManyToMany(() => Role, role => role.users)
-    @JoinTable()
+    // @JoinTable()
     roles: Role[];
 }

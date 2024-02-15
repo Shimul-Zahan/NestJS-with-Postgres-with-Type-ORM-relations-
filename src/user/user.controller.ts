@@ -23,7 +23,7 @@ export class UserController {
 
     @Get('users') // Adjusted the path here
     async findAllUsers(): Promise<User[]> {
-        return this.userService.findAllUsers();
+        return this.userService.findAllUsers(); 
     }
 
 }
