@@ -18,6 +18,10 @@ export class User {
     @Column()
     adress: string;
 
+    @Column()
+    image: string;
+
+    @Column({ type: 'bytea', nullable: true })
     @OneToOne(() => Details, details => details.user)
     details: Details;
 
