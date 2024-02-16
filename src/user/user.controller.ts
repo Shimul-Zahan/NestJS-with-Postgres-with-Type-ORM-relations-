@@ -1,7 +1,10 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './create-user.dto';
 import { User } from './user.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import * as path from 'path'
 
 @Controller('user')
 export class UserController {
@@ -21,9 +24,21 @@ export class UserController {
     }
 
 
-    @Get('users') // Adjusted the path here
+    @Get('users')
     async findAllUsers(): Promise<User[]> {
         return this.userService.findAllUsers();
+    }
+
+
+    @Post('/upload-image')
+    @UseInterceptors(FileInterceptor('image'))
+    imageAdd(@UploadedFile() image: Express.Multer.File) {
+
+        console.log(image);
+
+        return {
+            message: 'Image uploaded successfully',
+        }
     }
 
 }
