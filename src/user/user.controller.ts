@@ -18,7 +18,8 @@ export class UserController {
         storage: diskStorage({
             destination: './uploads/images',
             filename: (req, file, cb) => {
-                const filename = file.originalname + + Math.round(Math.random() * 1E9);
+                const sanitizedFilename = file.originalname.replace(/\\/g, '/');
+                const filename = sanitizedFilename + Math.round(Math.random() * 1E9);
                 const fileExtension = path.extname(file.originalname);
                 const newFileName = `${filename}${fileExtension}`;
                 cb(null, newFileName);
@@ -28,9 +29,6 @@ export class UserController {
 
     async createUser(@UploadedFile() image: Express.Multer.File, @Body() createUserDto: CreateUserDto): Promise<{ message: string, user: User }> {
         try {
-            // console.log('from controller', image.path);
-            // createUserDto.image = image.path.buffer;
-            // const imageBuffer = fs.readFileSync(image.path);
             createUserDto.image = image.path;
             console.log('from controller 2', image);
             const user = await this.userService.createUser(createUserDto);
@@ -41,22 +39,6 @@ export class UserController {
             throw new HttpException({ message: 'An unexpected error occurred.' }, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    // @UseInterceptors(FileInterceptor('image', {
-    //     storage: diskStorage({
-    //         destination: './uploads/images',
-    //         filename: (req, file, cb) => {
-    //             const filename = file.originalname + + Math.round(Math.random() * 1E9);
-    //             const fileExtension = path.extname(file.originalname);
-    //             const newFileName = `${filename}${fileExtension}`;
-    //             cb(null, newFileName);
-    //         }
-    //     })
-    // }))
-    // imageAdd(@UploadedFile() image: Express.Multer.File) {
-    //     console.log(image);
-    //     return { originalname: image.originalname, filename: image.filename };
-    // }
 
     @Get('')
     async findAllUsers(): Promise<User[]> {
